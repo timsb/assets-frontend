@@ -28,6 +28,7 @@ var setSSOLinks = require('./modules/SSO_links.js'),
     validatorFocus = require('./modules/validatorFocus.js'),
     enhancedTables = require('./modules/enhancedTables.js'),
     attorneyBanner = require('./modules/attorneyBanner.js');
+    helpAndContact = require('./modules/helpAndContact.js');
 
 //initialise mdtpf
 fingerprint();
@@ -140,5 +141,6 @@ $(function() {
   toggleDetails();
   validatorFocus();
   attorneyBanner();
+  helpAndContact().init();
   ajaxFormSubmit.init(ajaxCallbacks);
 });
