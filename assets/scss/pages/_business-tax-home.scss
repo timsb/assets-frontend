@@ -248,6 +248,7 @@
     margin: 10px 0;
     @include media(tablet) {
       display: inline-block;
+      margin: 0 0 0 8px;
       left: 40%;
       width: 47%;
     }
@@ -255,8 +256,8 @@
   .manage-acct__data--after-details {
     @include media(tablet) {
       position: absolute;
+      margin: 10px 0;
       top: 5px;
-      right: 5px;
     }
   }
 
@@ -266,6 +267,7 @@
     margin: 10px 0;
     @include media(tablet) {
       display: inline-block;
+      margin: 0;
       right: 5px;
       width: 10%;
     }
@@ -273,6 +275,7 @@
   .manage-acct__action-link--after-details {
     @include media(tablet) {
       position: absolute;
+      margin: 10px 0;
       top: 5px;
     }
   }
