@@ -221,7 +221,7 @@ Styleguide Form.date
 
 
 .form-date {
-  @extend %contains-floats;
+  @extend %contain-floats;
   display: inline-block;
 
   @include ie-lte(7) {
@@ -303,6 +303,11 @@ Styleguide Form.control
   @include media(tablet) {
     width: 50%;
   }
+
+}
+// fix the select element on Webkit which is broken in govuk_elements' version of this file
+select.form-control {
+  -webkit-appearance: menulist;
 }
 
 .form-control--block {

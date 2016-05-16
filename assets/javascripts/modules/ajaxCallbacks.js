@@ -57,9 +57,66 @@ var ajaxCallbacks = {
       }
     }
   },
+  apiSubscribeResponse: {
+    callbacks: {
+      success: function(response, $element, data, helpers) {
+        var $onDisabled = $('<span class="toggle__button toggle__button--active">On</span>'),
+          $offDisabled = $('<span class="toggle__button toggle__button--disabled">Off</span>'),
+          $parent = $element.parent(),
+          $off = $parent.find('[data-toggle-subscribe="off"]'),
+          formContext = $element.find('[name=context]').val(),
+          formVersion = $element.find('[name=version]').val(),
+          isAdmin =  $element.is('[data-role-admin]'),
+          offUrl =  $element.data('off-url'),
+          $offLink;
+
+        // remove any error already displayed
+        $element.find('.toggle__error').removeClass('inline-block');
+
+        // add "On" element
+        $parent.prepend($onDisabled);
+
+        // remove subscribe form
+        $element.remove();
+
+        // clear the off container
+        $off.remove();
+
+        // if active user is administrator then provide a link to allow un-subscribe
+        if (isAdmin) {
+          $offLink = $('<a>Off</a>')
+            .addClass('toggle__button')
+            .attr('href', offUrl)
+            .data('api-unsubscribe', formContext + '-' + formVersion);
+
+          // add 'off' link
+          $parent.append($offLink);
+        } else {
+          // add disabled 'off' text for developers
+          $parent.append($offDisabled);
+        }
+
+        // update no of subscriptions
+        $('[data-api-subscriptions="'+ response.apiName +'"]').text(response.numberOfSubscriptionText);
+
+        helpers.base.success.apply(null, arguments);
+      },
+      error: function(response, $element, data, helpers, targets, container, type) {
+        // show error message
+        $element.find('.toggle__error').addClass('inline-block');
+        helpers.base.error.apply(null, arguments);
+      }
+    }
+  },
   helpers: {
     base: {
       beforeSend: function($element, data, helpers, targets, container, type, actions) {
+        // add waiting state component
+        var showWaiting = $element.data('ajax-waiting');
+        if (showWaiting) {
+          $element.prepend($('<span class="waiting"></span>'));
+        }
+
         helpers.utilities.setFormState($element, true);
       },
 
@@ -77,6 +134,12 @@ var ajaxCallbacks = {
       },
 
       always: function(response, $element, data, helpers, targets, container, type, actions) {
+        // clean waiting state
+        var showWaiting = $element.data('ajax-waiting');
+        if (showWaiting) {
+          $element.find('.waiting').remove();
+        }
+
         if (helpers.hasErrorType !== 'service') {
           helpers.resetForms(helpers, type, data, container);
         }

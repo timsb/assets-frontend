@@ -41,7 +41,7 @@ To install multiple versions of Node.js, you may find it easier to use a node ve
 
 #### [nodemon](http://nodemon.io/) (optional)
 
-`nodemon` is used to develop [the Component Library](working-on-the-component-library).
+`nodemon` is used to develop [the Component Library]("#component-library")
 
 It is recommended to install nodemon globally.
 
@@ -80,10 +80,11 @@ Compiles the assets for production.
 $ ./server.sh build
 ```
 
-
 ## Component Library
 
 ### Viewing the Component Library
+
+It is available at [http://hmrc.github.io/assets-frontend](http://hmrc.github.io/assets-frontend).
 
 If you're running assets-frontend locally using `./server dev` or `npm start`, then you can view the Component Library by opening a browser at http://localhost:9032/component-library/
 
